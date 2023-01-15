@@ -20,7 +20,7 @@ namespace Ripasso_Array
             // Ciclo controllo input variabile 'dim'
             do                                                                          // Esegui...
             {
-                Console.Write("Inserire lunghezza dell'array (0 < x < 100): ");         // Stampa 'Inserire lunghezza dell'array (0 < x < 100):'
+                Console.Write("Inserire lunghezza iniziale dell'array (0 < x < 15): "); // Stampa 'Inserire lunghezza dell'array (0 < x < 100):'
                 dim = Convert.ToInt32(Console.ReadLine());                              // Input variabile 'dim'
                 if (dim > array.Length)                                                 // Se 'dim' maggiore della lunghezza dell'array
                 {
@@ -29,34 +29,31 @@ namespace Ripasso_Array
                     Thread.Sleep(1000);                                                 // Pausa 1 secondo
                     Console.Clear();                                                    // Pulizia contenuto console
                 }
-            } while (dim > array.Length);                                               // ...mentre 'dim' maggiore lunghezza array
+            } while (dim <= 0 || dim > 15);                                             // ...mentre 'dim' è minore-uguale a zero o maggiore lunghezza array
+            // Ciclo inserimento valori inziali array
+            for (int i = 0; i < dim; i++)                                               // Ciclo
+            {
+                Console.Write($"Inserire elemento in posizione {i}: ");                 // Stampa 'Inserire elemento in posizione {i}:'
+                c = Convert.ToInt32(Console.ReadLine());                                // Input variabile 'c'
+                array[i] = c;                                                           // Inserimento valori nell'array
+            }
             // Struttura menù
             do                                                                          // Esegui...
             {
                 // Stampa opzioni
                 Console.Clear();                                                        // Pulizia contenuto console
-                Console.SetCursorPosition(2, 0);                                        // Posizionamento cursore alle coordinate 2, 0
-                Console.WriteLine("1 - Aggiungi elemento");                             // Stampa opzione 1
-                Console.SetCursorPosition(2, 1);                                        // Posizionamento cursore alle coordinate 2, 1
-                Console.WriteLine("2 - Stampa elementi caricati");                      // Stampa opzione 2
-                Console.SetCursorPosition(2, 2);                                        // Posizionamento cursore alle coordinate 2, 2
-                Console.WriteLine("3 - Stampa stringa HTML");                           // Stampa opzione 3
-                Console.SetCursorPosition(2, 3);                                        // Posizionamento cursore alle coordinate 2, 3
-                Console.WriteLine("4 - Ricerca elemento");                              // Stampa opzione 4
-                Console.SetCursorPosition(2, 4);                                        // Posizionamento cursore alle coordinate 2, 4
-                Console.WriteLine("5 - Elimina elemento");                              // Stampa opzione 5
-                Console.SetCursorPosition(2, 5);                                        // Posizionamento cursore alle coordinate 2, 5
-                Console.WriteLine("6 - Aggiungi elemento alla posizione desiderata");   // Stampa opzione 6
-                Console.SetCursorPosition(2, 6);                                        // Posizionamento cursore alle coordinate 2, 6
-                Console.WriteLine("0 - Uscita");                                        // Stampa opzione 0
+                Console.WriteLine("1 - Aggiungi elemento\n2 - Stampa elementi caricati\n3 - Stampa stringa HTML\n4 - Ricerca elemento\n5 - Elimina elemento\n6 - Aggiungi elemento alla posizione desiderata\n0 - Uscita");         // Stampa messaggi selezione casi
                 Console.WriteLine();                                                    // A capo
                 Console.Write("Inserisci la scelta: ");                                 // Scelta opzione
                 scelta = Convert.ToInt32(Console.ReadLine());                           // Input variabile 'scelta'
                 // Esecuzione opzioni
-                switch (scelta)
+                switch (scelta)                                                         // Selezione casi in base al valore della variabile 'scelta'
                 {
+                    default:                                                            // Se 'scelta' non corrisponde a nessun valore dei casi
+                        Console.WriteLine("Opzione non valida!");                       // Stampa 'Opzione non valida!'
+                        break;                                                          // Interrompi esecuzione
                     case 1:                                                             // Se 'scelta' uguale ad 1
-                        Console.Write("Inserisci elemento: ");                          // Stampa 'Inserisci elemento:'
+                        Console.Write("Inserisci elemento da aggiungere in coda: ");    // Stampa 'Inserisci elemento da inserire in coda:'
                         c = Convert.ToInt32(Console.ReadLine());                        // Input variabile 'c'
                         if (Aggiunta(c, array, ref dim) == true)                        // Se chiamata funzione 'Aggiunta' restituisce 'true'
                         {
@@ -70,7 +67,7 @@ namespace Ripasso_Array
                     case 2:                                                             // Se 'scelta' uguale ad 2
                         for (int i = 0; i < dim; i++)                                   // Ciclo stampa array
                         {
-                            Console.Write(array[i] + ", ");                             // Stampa array
+                            Console.Write(array[i] + " ");                              // Stampa array
                         }
                         break;                                                          // Interrompere esecuzione
                     case 3:                                                             // Se 'scelta' uguale a 3
@@ -149,7 +146,11 @@ namespace Ripasso_Array
             bool inserito = false;                                                      // Dichiarazione variabile di tipo booleano 'inserito'
             if (p < array.Length)                                                       // Se 'p' minore della lunghezza dell'array
             {
-                array[p] = c;                                                           // Inseriemento elemento
+                for (int i = array.Length -1; i > p; i--)
+                {
+                    array[i] = array[i - 1];
+                }
+                array[p] = c;                                                           // Inserimento variabile 'c' nell'array
                 inserito = true;                                                        // Assegnazione 'true' alla variabile 'inserito'
             }
             return inserito;                                                            // Restituzione variabile 'inserito'
