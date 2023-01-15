@@ -12,7 +12,7 @@ namespace Ripasso_Array
         {
             // Dichiarazioni
             int[] array = new int[100];                                                 // Dichiarazione matrice di tipo intero 'array'
-            int c;                                                                      // Dichiarazione variabili di tipo intero 'c'
+            int c, p;                                                                   // Dichiarazione variabili di tipo intero 'c' e 'p'
             int dim;                                                                    // Dichiarazione variabile di tipo intero 'dim'
             int scelta;                                                                 // Dichiarazione variabile di tipo intero 'scelta'
 
@@ -76,17 +76,33 @@ namespace Ripasso_Array
                     case 3:                                                             // Se 'scelta' uguale a 3
                         break;                                                          // Interrompere esecuzione
                     case 4:                                                             // Se 'scelta' uguale a 4
-                        Console.Write("Inserire elemento da ricercare: ");              // Stampa 'Inserire elemento da ricercare:'
-                        c = Convert.ToInt32(Console.ReadLine());                        // Input variabile 'c'
-                        if (Ricerca(c, array) == -1)                                    // Se chiamata funzione 'Ricerca' restituisce '-1'
+                        Console.Write("Inserire elemento da ricercare: ");                              // Stampa 'Inserire elemento da ricercare:'
+                        c = Convert.ToInt32(Console.ReadLine());                                        // Input variabile 'c'
+                        if (Ricerca(c, array) == -1)                                                    // Se chiamata funzione 'Ricerca' restituisce '-1'
                         {
-                            Console.WriteLine("Numero non trovato!");                   // Stampa 'Numero non trovato!'
+                            Console.WriteLine("Numero non trovato!");                                   // Stampa 'Numero non trovato!'
                         }
-                        else                                                            // Altrimenti
+                        else                                                                            // Altrimenti
                         {
-                            Console.WriteLine("Numero trovato in posizione " + Ricerca(c, array));       // Stampa 'Numero trovato in posizione ' + resituzione valore funzione 'Ricerca'
+                            Console.WriteLine("Numero trovato in posizione " + Ricerca(c, array));      // Stampa 'Numero trovato in posizione ' + resituzione valore funzione 'Ricerca'
                         }
                         break;                                                          // Interrompere esecuzione
+                    case 5:                                                             // Se 'scelta' uguale a 5
+                        break;                                                          // Interrompere esecuzione
+                    case 6:                                                                                 // Se 'scelta' uguale a 6
+                        Console.Write("Inserire posizione nella quale inserire l'elemento: ");              // Stampa 'Inserire elemento da ricercare:'
+                        p = Convert.ToInt32(Console.ReadLine());                                            // Input variabile 'p'
+                        Console.Write("Inserire elemento: ");                                               // Stampa 'Inserire elemento:'
+                        c = Convert.ToInt32(Console.ReadLine());                                            // Input variabile 'c'
+                        if (InserimentoInPosizione(c, p, array) == true)                                    // Se chiamata funzione 'InserimentoInPosizione' restituisce 'true'
+                        {
+                            Console.WriteLine($"Elemento {c} inserito correttamente in posizione {p}!");    // Stampa 'Elemento {c} inserito correttamente in posizione {p}!'
+                        }
+                        else                                                                                // Altrimenti
+                        {
+                            Console.Write("Errore!\nElemento non inserito correttamente.");                 // Stampa 'Errore!\nElemento non inserito correttamente.'
+                        }
+                        break;                                                                              // Interrompere esecuzione
                 }
                 Console.ReadKey();                                                      // Attesa un'azione da parte dell'utente prima di continuare l'esecuzione
             } while (scelta != 0);                                                      // ...mentre variabile 'scelta' è diversa da 0
@@ -108,24 +124,35 @@ namespace Ripasso_Array
         }
         // Visualizzazione dell'array che restituisca la stringa in HTML
         // Ricerca un numero all'interno dell'array, la funzione deve restituire la posizione dell'elemento se lo trova, -1 se non lo trova
-        static int Ricerca(int c, int[] array)
+        static int Ricerca(int c, int[] array)                                          // Funzione 'Ricerca' che va a ricercare elementi nell'array
         {
-            int risultatoricerca = 0;
-            for (int i = 0; i < array.Length; i++)
+            int risultatoricerca = 0;                                                   // Assegnazione variabile 'risultatoricerca'
+            for (int i = 0; i < array.Length; i++)                                      // Ciclo
             {
-                if (array[i] == c)
+                if (array[i] == c)                                                      // Se indice array uguale a 'c'
                 {
-                    risultatoricerca = i;
-                    break;
+                    risultatoricerca = i;                                               // Assegna alla variabile 'risultato ricerca' il valore dell' indice
+                    break;                                                              // Interrompere esecuzione
                 }
-                else
+                else                                                                    // Altrimenti
                 {
-                    risultatoricerca = -1;
+                    risultatoricerca = -1;                                              // Assegnazione variabile 'risultatoricerca' il valore '-1'
                 }
             }
-            return risultatoricerca;
+            return risultatoricerca;                                                    // Resituzione 'risultatoricerca'
         }
         // Cancellazione di un elemento dell'array
+
         // Inserimento di un valore in una posizione dell'array
+        static bool InserimentoInPosizione(int c, int p, int[] array)                   // Funzione 'InserimentoInPosizione' che inserisce un elemento in una determinata posizione
+        {
+            bool inserito = false;                                                      // Dichiarazione variabile di tipo booleano 'inserito'
+            if (p < array.Length)                                                       // Se 'p' minore della lunghezza dell'array
+            {
+                array[p] = c;                                                           // Inseriemento elemento
+                inserito = true;                                                        // Assegnazione 'true' alla variabile 'inserito'
+            }
+            return inserito;                                                            // Restituzione variabile 'inserito'
+        }
     }
 }
