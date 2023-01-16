@@ -72,6 +72,10 @@ namespace Ripasso_Array
                         }
                         break;                                                          // Interrompere esecuzione
                     case 3:                                                             // Se 'scelta' uguale a 3
+                        Console.WriteLine("");                                          // A capo
+                        Console.WriteLine("<!DOCTYPE html>\r\n<html lang=\"it\">\r\n<head>\r\n    <title>Ripasso Array-21</title>\r\n</head>\r\n<body>");   // Stampa prima parte codice HTML
+                        Console.WriteLine(HTML(array, ref dim));                        // Stampa stringa resituita dalla funzione
+                        Console.WriteLine("</body>\r\n</html>");                        // Stampa parte finale del codice HTML
                         break;                                                          // Interrompere esecuzione
                     case 4:                                                             // Se 'scelta' uguale a 4
                         Console.Write("Inserire elemento da ricercare: ");              // Stampa 'Inserire elemento da ricercare:'
@@ -88,7 +92,7 @@ namespace Ripasso_Array
                     case 5:                                                                          // Se 'scelta' uguale a 5
                         Console.Write("Inserire elemento che si desidera eliminare: ");              // Stampa 'Inserire elemento che si desidera eliminare:'
                         c = Convert.ToInt32(Console.ReadLine());                                     // Input variabile 'c'
-                        if (Cancella(c, array, ref dim) == true)                                              // Se chiamata funzione 'Cancella' restituisce 'true'
+                        if (Cancella(c, array, ref dim) == true)                                     // Se chiamata funzione 'Cancella' restituisce 'true'
                         {
                             Console.WriteLine("Elemento cancellato correttamente!");                 // Stampa 'Elemento cancellato correttamente!'
                         }
@@ -136,6 +140,18 @@ namespace Ripasso_Array
         }
         
         // Visualizzazione dell'array che restituisca la stringa in HTML
+        static string HTML(int[] array, ref int dim)                                    // Funzione 'HTML' che stampa il codice in HTML
+        {
+            string codice = "   <table>\n";                                             // Dichiarazione variabile di tipo stringa 'codice'
+            for (int i = 0; i < dim; i++)                                               // Ciclo
+            {
+                codice += "         <tr>\n";                                            // Concatenazione variabile 'codice'
+                codice += "             <td>" + array[i] + "</td>\n";                   // Concatenazione variabile 'codice'
+                codice += "         </tr>\n";                                           // Concatenazione variabile 'codice'
+            }
+            codice += "   </table>";                                                    // Concatenazione variabile 'codice'
+            return codice;                                                              // Restituzione variabile 'codice'
+        }
         
         // Ricerca un numero all'interno dell'array, la funzione deve restituire la posizione dell'elemento se lo trova, -1 se non lo trova
         static int Ricerca(int c, int[] array)                                          // Funzione 'Ricerca' che va a ricercare elementi nell'array
@@ -157,14 +173,14 @@ namespace Ripasso_Array
         }
         
         // Cancellazione di un elemento dell'array
-        static bool Cancella(int c, int[] array, ref int dim)                                        // Funzione 'Cancella' che va a ricercare un elemento nell'array e lo elimina                               
+        static bool Cancella(int c, int[] array, ref int dim)                           // Funzione 'Cancella' che va a ricercare un elemento nell'array e lo elimina                               
         {
             bool cancellato = false;                                                    // Dichiarazione variabile di tipo booleano 'cancellato'
             for (int i = 0; i < array.Length; i++)                                      // Ciclo
             {
                 if (array[i] == c)                                                      // Condizione per verificare che a 'i' sia presente 'c'
                 {
-                    dim--;
+                    dim--;                                                              // Diminuzione variabile 'dim'
                     for (int j = i; j < array.Length - 1; j++)                          // Ciclo per spostare di una posizione indietro tutti i valori dopo la posizione del valore eliminato
                     {
                         array[j] = array[j + 1];
